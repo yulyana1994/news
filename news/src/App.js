@@ -1,9 +1,15 @@
-import MainPage from "./pages/mainPage";
+import { Route, Switch, Redirect } from "react-router-dom";
+import PostsPage from "./pages/postsPage";
+import NewsPage from "./pages/newsPage";
 
 function App() {
   return (
     <div>
-      <MainPage />
+      <Switch>
+        <Route path="/posts" exact component={PostsPage} />
+        <Route path="/posts/:postsId" component={NewsPage} />
+        <Redirect to="/posts" />
+      </Switch>
     </div>
   );
 }

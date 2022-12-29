@@ -1,20 +1,24 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import axios from "axios";
-import List from "./../conponents/list";
-import config from "../config.json";
+import List from "../conponents/list";
 import Pagination from "../conponents/pagination";
+import getAllData from "../utils/request";
 
-const MainPage = () => {
+const PostsPage = () => {
   const [posts, setPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const postsEndPoint = config.apiEndpoint + "posts";
   const count = posts.length;
   const pageSize = 10;
 
+  // useEffect(() => {
+  //   const promise = axios.get(postsEndPoint).then((res) => setPosts(res.data));
+  // }, []);
+
   useEffect(() => {
-    const promise = axios.get(postsEndPoint).then((res) => setPosts(res.data));
+    getAllData().then((res) => console.log(res));
   }, []);
+
+  console.log(posts);
 
   const handlePageChange = (pageIndex) => {
     setCurrentPage(pageIndex);
@@ -30,7 +34,7 @@ const MainPage = () => {
   return (
     <>
       <h1 className="mb-4">Новости дня:</h1>
-      {posts ? <List posts={postsCrop} /> : "Loading..."}
+      <List posts={postsCrop} />
       <Pagination
         itemsCount={count}
         pageSize={pageSize}
@@ -41,4 +45,4 @@ const MainPage = () => {
   );
 };
 
-export default MainPage;
+export default PostsPage;
